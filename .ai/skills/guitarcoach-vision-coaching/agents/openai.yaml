@@ -1,0 +1,4 @@
+interface:
+  display_name: "GuitarCoach Vision Coaching"
+  short_description: "Build trustworthy on-device feedback."
+  default_prompt: "Design or implement a confidence-gated GuitarCoach vision feature."
