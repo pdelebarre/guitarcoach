@@ -1,0 +1,4 @@
+interface:
+  display_name: "GuitarCoach Agile Delivery"
+  short_description: "Run small, verified agile slices."
+  default_prompt: "Plan and deliver the next smallest GuitarCoach backlog slice."
