@@ -1,0 +1,4 @@
+interface:
+  display_name: "GuitarCoach Privacy Growth"
+  short_description: "Grow without compromising learner trust."
+  default_prompt: "Plan a privacy-safe GuitarCoach launch or growth experiment."
