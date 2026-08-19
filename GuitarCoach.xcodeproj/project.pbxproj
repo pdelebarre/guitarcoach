@@ -1,0 +1,381 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		75F20259454177727634DD84 /* PracticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811C528293FD02F9D5EAD591 /* PracticeViewModel.swift */; };
+		80421CC2060D4AB558B91B3C /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D0CE064AA197A6BDE06D43 /* PracticeView.swift */; };
+		BD173A638673AD7E2154089C /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE566F62670C35A4A75CE66 /* CameraManager.swift */; };
+		BDD8146943B5D7A3FC760F23 /* GuitarCoachApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 133B3B4A45013BFCCB1CE448 /* GuitarCoachApp.swift */; };
+		E09290DCC03E0595E2A0E486 /* HandPoseRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBA74D2A6880DA32FFAC1DA /* HandPoseRecognizer.swift */; };
+		E533BB97175294E2AC9CF7B7 /* CoachingEngine in Frameworks */ = {isa = PBXBuildFile; productRef = 72549E9AF4F032C251C9CF6D /* CoachingEngine */; };
+		E972D608DE60912B5D1CB28B /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A39E2BB1F6F4959213EB43 /* CameraPreview.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0BBA74D2A6880DA32FFAC1DA /* HandPoseRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandPoseRecognizer.swift; sourceTree = "<group>"; };
+		133B3B4A45013BFCCB1CE448 /* GuitarCoachApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuitarCoachApp.swift; sourceTree = "<group>"; };
+		458CBC71EED4375B12B9C7C8 /* CoachingEngine */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CoachingEngine; sourceTree = SOURCE_ROOT; };
+		50D0CE064AA197A6BDE06D43 /* PracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
+		52AF963D0ED481D92C9CF8A1 /* GuitarCoach.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuitarCoach.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B79050DDBD3A95E2351A3A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		811C528293FD02F9D5EAD591 /* PracticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeViewModel.swift; sourceTree = "<group>"; };
+		8BE566F62670C35A4A75CE66 /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
+		D5A39E2BB1F6F4959213EB43 /* CameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BB62CB315879A8C41AB82864 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E533BB97175294E2AC9CF7B7 /* CoachingEngine in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		24B2E07BD86C763BEF4C90FD = {
+			isa = PBXGroup;
+			children = (
+				9141D0A31A2C8E34E0F80F44 /* GuitarCoach */,
+				B9CAF7B69162A4979F5F08F3 /* Packages */,
+				9E9810E96267A0BF417636EE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		30CA52D444D6397768EEB617 /* Practice */ = {
+			isa = PBXGroup;
+			children = (
+				50D0CE064AA197A6BDE06D43 /* PracticeView.swift */,
+				811C528293FD02F9D5EAD591 /* PracticeViewModel.swift */,
+			);
+			path = Practice;
+			sourceTree = "<group>";
+		};
+		47D94BC6B8D0F6A9B95B8725 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				133B3B4A45013BFCCB1CE448 /* GuitarCoachApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		6ACA838C198C0693F5E7B835 /* Perception */ = {
+			isa = PBXGroup;
+			children = (
+				0BBA74D2A6880DA32FFAC1DA /* HandPoseRecognizer.swift */,
+			);
+			path = Perception;
+			sourceTree = "<group>";
+		};
+		9141D0A31A2C8E34E0F80F44 /* GuitarCoach */ = {
+			isa = PBXGroup;
+			children = (
+				6B79050DDBD3A95E2351A3A7 /* Info.plist */,
+				47D94BC6B8D0F6A9B95B8725 /* App */,
+				BC0EF9DA340924ED5E7324D8 /* Capture */,
+				6ACA838C198C0693F5E7B835 /* Perception */,
+				30CA52D444D6397768EEB617 /* Practice */,
+			);
+			path = GuitarCoach;
+			sourceTree = "<group>";
+		};
+		9E9810E96267A0BF417636EE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				52AF963D0ED481D92C9CF8A1 /* GuitarCoach.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B9CAF7B69162A4979F5F08F3 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				458CBC71EED4375B12B9C7C8 /* CoachingEngine */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		BC0EF9DA340924ED5E7324D8 /* Capture */ = {
+			isa = PBXGroup;
+			children = (
+				8BE566F62670C35A4A75CE66 /* CameraManager.swift */,
+				D5A39E2BB1F6F4959213EB43 /* CameraPreview.swift */,
+			);
+			path = Capture;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		ABF113C1870DBBEBECF66530 /* GuitarCoach */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C7688F83C198ADBDC089CC3C /* Build configuration list for PBXNativeTarget "GuitarCoach" */;
+			buildPhases = (
+				3D6FAAC3984019A29D440A59 /* Sources */,
+				BB62CB315879A8C41AB82864 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GuitarCoach;
+			packageProductDependencies = (
+				72549E9AF4F032C251C9CF6D /* CoachingEngine */,
+			);
+			productName = GuitarCoach;
+			productReference = 52AF963D0ED481D92C9CF8A1 /* GuitarCoach.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8D15A29776DBCD10882E7A23 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+			};
+			buildConfigurationList = 5210081051A34C6E6EC5FECA /* Build configuration list for PBXProject "GuitarCoach" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 24B2E07BD86C763BEF4C90FD;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				8D669427D4A77A3323A040A1 /* XCLocalSwiftPackageReference "CoachingEngine" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 9E9810E96267A0BF417636EE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ABF113C1870DBBEBECF66530 /* GuitarCoach */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3D6FAAC3984019A29D440A59 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD173A638673AD7E2154089C /* CameraManager.swift in Sources */,
+				E972D608DE60912B5D1CB28B /* CameraPreview.swift in Sources */,
+				BDD8146943B5D7A3FC760F23 /* GuitarCoachApp.swift in Sources */,
+				E09290DCC03E0595E2A0E486 /* HandPoseRecognizer.swift in Sources */,
+				80421CC2060D4AB558B91B3C /* PracticeView.swift in Sources */,
+				75F20259454177727634DD84 /* PracticeViewModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0A6355406F7C2F65F1CF6F02 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 72B9K5MAM5;
+				INFOPLIST_FILE = GuitarCoach/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pdelebarre.GuitarCoach;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2B8C2DA2BB612C81B82C18A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		AD191A1DEB08B86EE4CD8148 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		D5D481E842124A0FFF38C06A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 72B9K5MAM5;
+				INFOPLIST_FILE = GuitarCoach/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pdelebarre.GuitarCoach;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5210081051A34C6E6EC5FECA /* Build configuration list for PBXProject "GuitarCoach" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AD191A1DEB08B86EE4CD8148 /* Debug */,
+				2B8C2DA2BB612C81B82C18A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C7688F83C198ADBDC089CC3C /* Build configuration list for PBXNativeTarget "GuitarCoach" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A6355406F7C2F65F1CF6F02 /* Debug */,
+				D5D481E842124A0FFF38C06A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		8D669427D4A77A3323A040A1 /* XCLocalSwiftPackageReference "CoachingEngine" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = CoachingEngine;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		72549E9AF4F032C251C9CF6D /* CoachingEngine */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CoachingEngine;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 8D15A29776DBCD10882E7A23 /* Project object */;
+}
