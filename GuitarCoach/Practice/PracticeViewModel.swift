@@ -63,7 +63,8 @@ final class PracticeViewModel {
     private func process(_ sampleBuffer: CMSampleBuffer) {
         guard let pixelBuffer = sampleBuffer.imageBuffer else { return }
         guard let detection = recognizer.detect(in: pixelBuffer), detection.detected else {
-            setFeedback(Feedback(cues: [.lowConfidence(reason: "hand_not_detected")]))
+            // Hand or neck not found: ask to reposition rather than guess.
+            setFeedback(Feedback(cues: [.lowConfidence(reason: "hand_or_neck_not_detected")]))
             return
         }
         let result = engine.assess(observation: detection.observation,

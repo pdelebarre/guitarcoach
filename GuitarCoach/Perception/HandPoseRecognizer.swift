@@ -4,31 +4,36 @@ import Vision
 import CoachingEngine
 
 /// Runs Vision hand-pose detection on a frame and converts image-space
-/// fingertip landmarks into neck-relative normalized coordinates.
-///
-/// For the M0 prototype the neck is approximated by a normalized crop of the
-/// frame (a centered band). Real neck-alignment geometry is a later milestone;
-/// this placeholder is the seam that must be validated with learners (see issue
-/// #8) and replaced by the reference-geometry pipeline.
+/// fingertip landmarks into neck-relative normalized coordinates, using a
+/// neck/fretboard region detected in the same frame as the reference geometry.
 struct HandPoseRecognizer {
     struct Detection {
         var observation: HandObservation
         var handRotationDegrees: Double?
+        var neckConfidence: Double?
         var detected: Bool
     }
 
     private let neckReference: NeckReference
-    private let imageToNeck: ImageToNeckMapper
+    private let neckDetector = NeckDetector()
 
-    init(neckReference: NeckReference = NeckReference(visibleFrets: 4),
-         imageToNeck: ImageToNeckMapper = .defaultPortrait) {
+    init(neckReference: NeckReference = NeckReference(visibleFrets: 4, fretTolerance: 0.35, minConfidence: 0.6)) {
         self.neckReference = neckReference
-        self.imageToNeck = imageToNeck
     }
 
     /// Processes a pixel buffer and returns the hand observation plus an
-    /// estimated rotation, or `nil` when no hand is found.
+    /// estimated rotation, or `nil` when no hand is found. When no credible neck
+    /// region is detected, `detected` is false so the caller can ask for
+    /// repositioning rather than emit a potentially-wrong correction.
     func detect(in pixelBuffer: CVPixelBuffer) -> Detection? {
+        // Establish reference geometry first: without a neck, coordinates are meaningless.
+        guard let neck = neckDetector.detect(in: pixelBuffer) else {
+            return Detection(observation: HandObservation(fingertips: []),
+                             handRotationDegrees: nil,
+                             neckConfidence: nil,
+                             detected: false)
+        }
+
         let request = VNDetectHumanHandPoseRequest()
         request.maximumHandCount = 1
 
@@ -38,12 +43,14 @@ struct HandPoseRecognizer {
         } catch {
             return Detection(observation: HandObservation(fingertips: []),
                              handRotationDegrees: nil,
+                             neckConfidence: neck.confidence,
                              detected: false)
         }
 
         guard let observation = request.results?.first else {
             return Detection(observation: HandObservation(fingertips: []),
                              handRotationDegrees: nil,
+                             neckConfidence: neck.confidence,
                              detected: false)
         }
 
@@ -59,7 +66,7 @@ struct HandPoseRecognizer {
             for (finger, joint) in fingerMap {
                 let point = try observation.recognizedPoint(joint)
                 guard point.confidence > 0.3 else { continue }
-                let neckPoint = imageToNeck.map(point.location)
+                let neckPoint = neck.quadrilateral.project(point.location)
                 fingertips.append(ObservedFingertip(
                     finger: finger,
                     x: neckPoint.x,
@@ -73,6 +80,7 @@ struct HandPoseRecognizer {
 
         return Detection(observation: HandObservation(fingertips: fingertips),
                          handRotationDegrees: estimateRotation(from: observation),
+                         neckConfidence: neck.confidence,
                          detected: true)
     }
 
@@ -87,21 +95,5 @@ struct HandPoseRecognizer {
         let dx = indexMCP.location.x - wrist.location.x
         let dy = indexMCP.location.y - wrist.location.y
         return Double(atan2(dy, dx)) * 180.0 / .pi
-    }
-}
-
-/// Maps Vision normalized image coordinates (origin bottom-left) into
-/// neck-relative normalized coordinates for the prototype's centered-band crop.
-struct ImageToNeckMapper {
-    /// The normalized (0...1) band of the frame assumed to contain the neck:
-    /// (xMin, xMax, yMin, yMax) in image coordinates.
-    let crop: CGRect
-
-    static let defaultPortrait = ImageToNeckMapper(crop: CGRect(x: 0.05, y: 0.1, width: 0.9, height: 0.5))
-
-    func map(_ point: CGPoint) -> CGPoint {
-        let nx = (point.x - crop.minX) / crop.width
-        let ny = (point.y - crop.minY) / crop.height
-        return CGPoint(x: min(max(nx, 0), 1), y: min(max(ny, 0), 1))
     }
 }
