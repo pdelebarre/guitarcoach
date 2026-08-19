@@ -125,6 +125,19 @@ final class CameraManager: NSObject, AVCaptureVideoDataOutputSampleBufferDelegat
             }
             isConfigured = true
         }
+
+        applyVideoOrientation(for: active)
+    }
+
+    /// Fixes the delivered pixel-buffer orientation so the analysis frame's
+    /// vertical axis matches the portrait preview (fret axis = down the neck).
+    /// `AVCaptureVideoDataOutput` delivers sensor-native landscape buffers by
+    /// default; without this, the neck mapper reads the wrong axes. Also mirrors
+    /// the frame for the front camera so it matches the mirrored preview.
+    private func applyVideoOrientation(for position: Position) {
+        guard let connection = videoOutput?.connection(with: .video) else { return }
+        connection.videoOrientation = .portrait
+        connection.isVideoMirrored = (position == .front)
     }
 
     nonisolated func captureOutput(
