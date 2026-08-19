@@ -52,14 +52,25 @@ struct PracticeView: View {
     }
 
     private var controlsOverlay: some View {
-        Button(action: model.cycleChord) {
-            Label("Next chord", systemImage: "arrow.triangle.2.circlepath")
-                .font(.headline)
-                .padding()
-                .background(.ultraThinMaterial, in: Capsule())
+        HStack(spacing: 16) {
+            Button(action: model.cycleChord) {
+                Label("Next chord", systemImage: "arrow.triangle.2.circlepath")
+                    .font(.headline)
+                    .padding()
+                    .background(.ultraThinMaterial, in: Capsule())
+            }
+            .accessibilityHint("Moves to the next chord in the starter path.")
+
+            Button(action: model.toggleCamera) {
+                Image(systemName: "camera.rotate")
+                    .font(.title2)
+                    .padding()
+                    .background(.ultraThinMaterial, in: Circle())
+            }
+            .accessibilityLabel("Switch camera")
+            .accessibilityHint("Toggles between the front and rear cameras. Front is the default.")
         }
         .padding(.bottom, 32)
-        .accessibilityHint("Moves to the next chord in the starter path.")
     }
 
     private var permissionDeniedView: some View {

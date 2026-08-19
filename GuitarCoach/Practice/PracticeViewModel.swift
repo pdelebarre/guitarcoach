@@ -49,6 +49,10 @@ final class PracticeViewModel {
         isMonitoring = false
     }
 
+    func toggleCamera() {
+        camera.toggleCamera()
+    }
+
     func cycleChord() {
         let all = StarterChords.all
         let currentIndex = all.firstIndex(of: currentChord) ?? 0

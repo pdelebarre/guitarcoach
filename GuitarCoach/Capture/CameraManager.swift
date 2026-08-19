@@ -4,7 +4,8 @@ import Observation
 
 /// Owns the AVFoundation capture session lifecycle for the prototype. Emits
 /// downscaled sample buffers in real time; raw frames are processed in memory
-/// and never stored.
+/// and never stored. Supports switching between the front and rear cameras at
+/// runtime.
 @MainActor
 @Observable
 final class CameraManager: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
@@ -15,10 +16,25 @@ final class CameraManager: NSObject, AVCaptureVideoDataOutputSampleBufferDelegat
         case failed(String)
     }
 
+    enum Position: Sendable {
+        case front
+        case back
+
+        var avPosition: AVCaptureDevice.Position {
+            switch self {
+            case .front: return .front
+            case .back: return .back
+            }
+        }
+    }
+
     private(set) var state: State = .idle
+    /// The active camera. Front is the default.
+    private(set) var position: Position = .front
     let session = AVCaptureSession()
     private let sessionQueue = DispatchQueue(label: "com.pdelebarre.guitarcoach.capture")
     private var onSampleBuffer: ((CMSampleBuffer) -> Void)?
+    private var videoOutput: AVCaptureVideoDataOutput?
     private var isConfigured = false
 
     override init() {
@@ -52,14 +68,38 @@ final class CameraManager: NSObject, AVCaptureVideoDataOutputSampleBufferDelegat
         }
     }
 
-    private func configure() {
-        guard !isConfigured else { return }
+    /// Switches to the opposite camera while the session is running.
+    func toggleCamera() {
+        let next: Position = position == .front ? .back : .front
+        sessionQueue.async { [weak self] in
+            guard let self else { return }
+            self.configure(position: next)
+        }
+    }
+
+    /// Builds the input for the current position if none exists, or swaps the
+    /// active input when the position changes. Safe to call from the session
+    /// queue, including while the session is running.
+    private func configure(position requested: Position? = nil) {
         session.beginConfiguration()
         defer { session.commitConfiguration() }
 
-        session.sessionPreset = .high
+        if !isConfigured {
+            session.sessionPreset = .high
+        }
 
-        guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else {
+        let active: Position = requested ?? position
+        position = active
+
+        // Remove any existing camera input so switching positions works at runtime.
+        let existingInputs = session.inputs.compactMap { $0 as? AVCaptureDeviceInput }
+        for input in existingInputs {
+            session.removeInput(input)
+        }
+
+        guard let device = AVCaptureDevice.default(.builtInWideAngleCamera,
+                                                   for: .video,
+                                                   position: active.avPosition) else {
             setState(.failed("no_camera"))
             return
         }
@@ -74,15 +114,17 @@ final class CameraManager: NSObject, AVCaptureVideoDataOutputSampleBufferDelegat
             return
         }
 
-        let output = AVCaptureVideoDataOutput()
-        output.alwaysDiscardsLateVideoFrames = true
-        output.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: Int(kCVPixelFormatType_32BGRA)]
-        output.setSampleBufferDelegate(self, queue: sessionQueue)
-        if session.canAddOutput(output) {
-            session.addOutput(output)
+        if !isConfigured {
+            let output = AVCaptureVideoDataOutput()
+            output.alwaysDiscardsLateVideoFrames = true
+            output.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: Int(kCVPixelFormatType_32BGRA)]
+            output.setSampleBufferDelegate(self, queue: sessionQueue)
+            if session.canAddOutput(output) {
+                session.addOutput(output)
+                videoOutput = output
+            }
+            isConfigured = true
         }
-
-        isConfigured = true
     }
 
     nonisolated func captureOutput(
