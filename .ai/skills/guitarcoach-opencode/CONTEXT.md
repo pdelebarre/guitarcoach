@@ -22,13 +22,58 @@
 - Do not use more expensive models unless the user explicitly asks.
 - Prefer concise reasoning and direct code over long monologues.
 
-## Shared context block
+## Shared context schema
 
-When multiple agents collaborate, they should reuse this context summary:
+All agents must use this exact structure:
 
-- Task goal (1–2 sentences)
-- Files involved (paths)
-- Constraints (e.g., "no public API changes", "keep tests green")
-- Current step (reading, designing, writing, validating)
+```yaml
+context:
+  goal: "1–2 sentence task goal"
+  files:
+    - "path/to/file1.swift"
+    - "path/to/file2.swift"
+  constraints:
+    - "e.g., no public API changes"
+    - "e.g., keep tests green"
+  step: "reading | designing | writing | validating"
+```
 
-Agents should append only deltas (what changed in understanding or plan), not repeat the whole context.
+Rules:
+- Context is always passed in full to every subtask.
+- Agents must NOT repeat the entire context in their outputs.
+- Agents update context via deltas only (see below).
+
+## Context delta format
+
+When an agent changes understanding or plan, it outputs a `context_delta` block:
+
+```yaml
+context_delta:
+  files_added:
+    - "new/path.swift"
+  files_removed:
+    - "old/path.swift"
+  constraints_added:
+    - "new constraint"
+  step: "new_step_value"  # optional
+  goal_revision: "revised 1–2 sentence goal"  # optional, rare
+```
+
+Orchestrator applies deltas to produce the new `context` for the next subtask.
+
+## History summary
+
+For long conversations, orchestrator maintains a `history_summary`:
+
+- 3–6 bullets summarizing:
+  - key decisions
+  - files changed
+  - open questions
+- Replaces detailed older turns when context grows large.
+
+Specialists see:
+- `context` (full)
+- `history_summary` (if present)
+- their own `subtask`
+
+They do NOT see the full raw conversation history.
