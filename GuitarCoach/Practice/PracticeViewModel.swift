@@ -2,6 +2,7 @@ import AVFoundation
 import CoachingEngine
 import Foundation
 import Observation
+import Vision
 
 /// Wires camera capture -> Vision hand pose -> coaching geometry engine into a
 /// single observable state the UI renders. The M0 prototype shows a live cue or
@@ -58,7 +59,8 @@ final class PracticeViewModel {
 
     private func process(_ sampleBuffer: CMSampleBuffer) {
         guard let pixelBuffer = sampleBuffer.imageBuffer else { return }
-        guard let detection = recognizer.detect(in: pixelBuffer), detection.detected else {
+        let orientation = visionOrientation(from: camera.currentOrientation)
+        guard let detection = recognizer.detect(in: pixelBuffer, orientation: orientation), detection.detected else {
             setFeedback(Feedback(cues: [.lowConfidence(reason: "hand_not_detected")]))
             return
         }
@@ -72,6 +74,20 @@ final class PracticeViewModel {
     private func setFeedback(_ feedback: Feedback) {
         MainActor.assumeIsolated {
             self.feedback = feedback
+        }
+    }
+
+    /// Maps the mirrored AVFoundation orientation back to the EXIF orientation
+    /// Vision expects. The raw buffer is mirrored (output connection has
+    /// `isVideoMirrored = true`), so we use the standard (non-mirrored) EXIF
+    /// values.
+    private func visionOrientation(from avOrientation: AVCaptureVideoOrientation) -> CGImagePropertyOrientation {
+        switch avOrientation {
+        case .portrait: .up
+        case .portraitUpsideDown: .down
+        case .landscapeLeft: .left
+        case .landscapeRight: .right
+        @unknown default: .up
         }
     }
 

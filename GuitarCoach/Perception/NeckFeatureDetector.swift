@@ -37,15 +37,18 @@ final class NeckFeatureDetector {
     }
     
     /// Detect neck features from a camera frame
-    /// - Parameter pixelBuffer: Video frame from AVCaptureSession
+    /// - Parameters:
+    ///   - pixelBuffer: Video frame from AVCaptureSession
+    ///   - orientation: EXIF image orientation matching current device rotation
     /// - Returns: Detected features or nil if confidence too low
-    func detect(in pixelBuffer: CVPixelBuffer) -> NeckFeatures? {
+    func detect(in pixelBuffer: CVPixelBuffer,
+                orientation: CGImagePropertyOrientation = .up) -> NeckFeatures? {
         CVPixelBufferLockBaseAddress(pixelBuffer, .readOnly)
         defer { CVPixelBufferUnlockBaseAddress(pixelBuffer, .readOnly) }
         
         let imageRequestHandler = VNImageRequestHandler(
             pixelBuffer: pixelBuffer,
-            options: [.imageOrientation: UIImage.Orientation.up.rawValue]
+            options: [.imageOrientation: orientation.rawValue]
         )
         
         // Run fret detection

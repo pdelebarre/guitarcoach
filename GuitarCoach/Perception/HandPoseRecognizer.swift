@@ -28,11 +28,17 @@ struct HandPoseRecognizer {
 
     /// Processes a pixel buffer and returns the hand observation plus an
     /// estimated rotation, or `nil` when no hand is found.
-    func detect(in pixelBuffer: CVPixelBuffer) -> Detection? {
+    ///
+    /// - Parameter orientation: The EXIF orientation matching the current
+    ///   device orientation. The caller (PracticeViewModel) is responsible
+    ///   for mapping from device rotation.
+    func detect(in pixelBuffer: CVPixelBuffer,
+                orientation: CGImagePropertyOrientation = .up) -> Detection? {
         let request = VNDetectHumanHandPoseRequest()
         request.maximumHandCount = 1
 
-        let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .up)
+        let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer,
+                                             orientation: orientation)
         do {
             try handler.perform([request])
         } catch {
